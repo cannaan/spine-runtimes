@@ -148,6 +148,8 @@ namespace Spine.Unity {
 		/// <remarks>This disables SkeletonRenderSeparator functionality.</remarks>
 		public bool singleSubmesh = false;
 
+		public bool useJobSystem = false;
+
 #if PER_MATERIAL_PROPERTY_BLOCKS
 		/// <summary> Applies only when 3+ submeshes are used (2+ materials with alternating order, e.g. "A B A").
 		/// If true, GPU instancing is disabled at all materials and MaterialPropertyBlocks are assigned at each

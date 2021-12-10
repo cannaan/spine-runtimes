@@ -64,6 +64,7 @@ namespace Spine.Unity.Editor {
 
 		protected SerializedProperty skeletonDataAsset, initialSkinName;
 		protected SerializedProperty initialFlipX, initialFlipY;
+		protected SerializedProperty useJobSystem;
 		protected SerializedProperty updateWhenInvisible, singleSubmesh, separatorSlotNames, clearStateOnDisable,
 			immutableTriangles, fixDrawOrder, fixPrefabOverrideViaMeshFilter;
 		protected SerializedProperty normals, tangents, zSpacing, pmaVertexColors, tintBlack; // MeshGenerator settings
@@ -146,6 +147,7 @@ namespace Spine.Unity.Editor {
 			initialSkinName = so.FindProperty("initialSkinName");
 			initialFlipX = so.FindProperty("initialFlipX");
 			initialFlipY = so.FindProperty("initialFlipY");
+			useJobSystem = so.FindProperty("useJobSystem");
 			normals = so.FindProperty("addNormals");
 			tangents = so.FindProperty("calculateTangents");
 			immutableTriangles = so.FindProperty("immutableTriangles");
@@ -348,6 +350,10 @@ namespace Spine.Unity.Editor {
 							wasInitParameterChanged |= EditorGUI.EndChangeCheck(); // Value used in the next update.
 							EditorGUILayout.Space();
 						}
+
+						EditorGUI.BeginChangeCheck();
+						SpineInspectorUtility.ToggleLeftLayout(useJobSystem, width: 200);
+						wasInitParameterChanged |= EditorGUI.EndChangeCheck();
 
 						EditorGUILayout.Space();
 						EditorGUILayout.LabelField("Renderer Settings", EditorStyles.boldLabel);
