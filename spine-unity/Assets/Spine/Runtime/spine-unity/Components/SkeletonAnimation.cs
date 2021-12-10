@@ -213,6 +213,11 @@ namespace Spine.Unity {
 			ApplyAnimation();
 		}
 
+		public void UpdateCurvesInJobSystem()
+        {
+
+        }
+
 		protected void UpdateAnimationStatus (float deltaTime) {
 			deltaTime *= timeScale;
 			skeleton.Update(deltaTime);
