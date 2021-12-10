@@ -170,7 +170,69 @@ namespace Spine.Unity
                 else
                 {
                     int segment = curveType - BEZIER;
-                    output = m_curve.GetBezierValue(time, frameIndex, 1, segment);
+                    output.x = m_curve.GetBezierValue(time, frameIndex, 1, segment);
+                    output.y = m_curve.GetBezierValue(time, frameIndex, 2, segment);
+                }
+            }
+        }
+
+        [BurstCompile]
+        public struct Float3CurveJob : IJob
+        {
+            public NativeCurve m_curve;
+            public float time;
+            public float3 output;
+
+            public void Execute()
+            {
+                int frameIndex = m_curve.Search(time);
+                int curveType = (int)m_curve.m_curves[frameIndex];
+                const int LINEAR = 0, STEPPED = 1, BEZIER = 2;
+                if (curveType == LINEAR)
+                {
+                    output = m_curve.GetLinearValue3(time, frameIndex);
+                }
+                else if (curveType == STEPPED)
+                {
+                    output = m_curve.GetStepValue3(frameIndex);
+                }
+                else
+                {
+                    int segment = curveType - BEZIER;
+                    output.x = m_curve.GetBezierValue(time, frameIndex, 1, segment);
+                    output.y = m_curve.GetBezierValue(time, frameIndex, 2, segment);
+                    output.z = m_curve.GetBezierValue(time, frameIndex, 3, segment);
+                }
+            }
+        }
+
+        [BurstCompile]
+        public struct Float4CurveJob : IJob
+        {
+            public NativeCurve m_curve;
+            public float time;
+            public float4 output;
+
+            public void Execute()
+            {
+                int frameIndex = m_curve.Search(time);
+                int curveType = (int)m_curve.m_curves[frameIndex];
+                const int LINEAR = 0, STEPPED = 1, BEZIER = 2;
+                if (curveType == LINEAR)
+                {
+                    output = m_curve.GetLinearValue4(time, frameIndex);
+                }
+                else if (curveType == STEPPED)
+                {
+                    output = m_curve.GetStepValue4(frameIndex);
+                }
+                else
+                {
+                    int segment = curveType - BEZIER;
+                    output.x = m_curve.GetBezierValue(time, frameIndex, 1, segment);
+                    output.y = m_curve.GetBezierValue(time, frameIndex, 2, segment);
+                    output.z = m_curve.GetBezierValue(time, frameIndex, 3, segment);
+                    output.w = m_curve.GetBezierValue(time, frameIndex, 4, segment);
                 }
             }
         }
